@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rose Day Surprise 🌹</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .card {
+            background: rgba(255, 192, 203, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+        button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 24px;
+            margin: 15px 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .heart {
+            position: absolute;
+            top: -10px;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+        #typing-area {
+            white-space: pre-wrap; 
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #d63031;
+            font-weight: bold;
+        }
+        h2, h3 { color: #2d3436; }
+    </style>
+</head>
+<body>
+
+<audio id="myAudio" loop>
+    <source src="Varsha Thapa - Maaya (Official Lyrical Video)(MP3_160K).mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+    <div id="stage1">
+        <h3>Click anywhere to start your surprise Somi🤍</h3>
+        <p>Hope you will like it !</p>
+    </div>
+
+    <div id="stage2" style="display:none;">
+        <h2>What do you like most? ✨</h2>
+        <button onclick="roseClick()">🌹</button>
+        <button onclick="roseClick()">🌷</button>
+    </div>
+
+    <div id="stage3" style="display:none;">
+        <div id="typing-area"></div>
+        <img id="cuteGif" src="https://media.tenor.com/Q0Z9ZfF5zYcAAAAi/cute-love.gif" width="150" style="display:none; margin: 20px auto 0;">
+    </div>
+</div>
+
+<script>
+let stage = 1;
+const audio = document.getElementById("myAudio");
+
+// Start the experience
+document.body.onclick = function() {
+    if(stage == 1) {
+        document.getElementById("stage1").style.display = "none";
+        document.getElementById("stage2").style.display = "block";
+        audio.play().catch(e => console.log("Audio play blocked until interaction")); 
+        heartRain(); 
+        stage = 2;
+    }
+}
+
+// Logic for clicking the flowers
+function roseClick() {
+    document.getElementById("stage2").style.display = "none";
+    document.getElementById("stage3").style.display = "block";
+    startTyping();
+}
+
+const fullText = "Happy Rose Day My love 🌹\n\nOne rose for you 🌹 because one “you” is enough to make my whole world perfect.\n\nHappy Rose Day ❤️\nI love you dherai dherai 😚🤍";
+
+let charIndex = 0;
+function startTyping() {
+    if(charIndex < fullText.length) {
+        document.getElementById("typing-area").innerHTML += fullText.charAt(charIndex);
+        charIndex++;
+        setTimeout(startTyping, 60); 
+    } else {
+        setTimeout(() => {
+            document.getElementById("cuteGif").style.display = "block";
+        }, 500); 
+    }
+}
+
+// Visual effect
+function heartRain() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        // Mix roses and hearts for Rose Day!
+        const symbols = ["❤️", "🌹", "💖", "🌸"];
+        heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
